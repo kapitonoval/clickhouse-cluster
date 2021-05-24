@@ -14,13 +14,15 @@ Containers will be available in docker network `172.23.0.0/24`
 
 | Container    | Address
 | ------------ | -------
-| zookeeper    | 172.23.0.10
-| clickhouse01 | 172.23.0.11
-| clickhouse02 | 172.23.0.12
-| clickhouse03 | 172.23.0.13
-| clickhouse04 | 172.23.0.14
-| clickhouse04 | 172.23.0.15
+| zoo1         | 172.23.0.10
+| zoo2         | 172.23.0.11
+| zoo3         | 172.23.0.12
+| clickhouse01 | 172.23.0.13
+| clickhouse02 | 172.23.0.14
+| clickhouse03 | 172.23.0.15
 | clickhouse04 | 172.23.0.16
+| clickhouse04 | 172.23.0.17
+| clickhouse04 | 172.23.0.18
 
 ## Profiles
 
