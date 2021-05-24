@@ -56,12 +56,30 @@
                     <port>9000</port>
                 </replica>
             </shard>
+            <shard>
+                <replica>
+                    <host>clickhouse05</host>
+                    <port>9000</port>
+                </replica>
+                <replica>
+                    <host>clickhouse06</host>
+                    <port>9000</port>
+                </replica>
+            </shard>
         </company_cluster>
     </remote_servers>
 
     <zookeeper>
         <node index="1">
-            <host>zookeeper</host>
+            <host>zoo1</host>
+            <port>2181</port>
+        </node>
+        <node index="2">
+            <host>zoo2</host>
+            <port>2181</port>
+        </node>
+        <node index="3">
+            <host>zoo3</host>
             <port>2181</port>
         </node>
     </zookeeper>
