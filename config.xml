@@ -15,7 +15,7 @@
     <listen_host>0.0.0.0</listen_host>
     <http_port>8123</http_port>
     <tcp_port>9000</tcp_port>
-    <interserver_http_host>clickhouse${REPLICA}</interserver_http_host>
+    <interserver_http_host>ch{SHARD}-${REPLICA}</interserver_http_host>
     <interserver_http_port>9009</interserver_http_port>
 
     <max_connections>4096</max_connections>
@@ -38,31 +38,31 @@
         <company_cluster>
             <shard>
                 <replica>
-                    <host>clickhouse01</host>
+                    <host>ch1-1</host>
                     <port>9000</port>
                 </replica>
                 <replica>
-                    <host>clickhouse02</host>
-                    <port>9000</port>
-                </replica>
-            </shard>
-            <shard>
-                <replica>
-                    <host>clickhouse03</host>
-                    <port>9000</port>
-                </replica>
-                <replica>
-                    <host>clickhouse04</host>
+                    <host>ch1-2</host>
                     <port>9000</port>
                 </replica>
             </shard>
             <shard>
                 <replica>
-                    <host>clickhouse05</host>
+                    <host>ch2-1</host>
                     <port>9000</port>
                 </replica>
                 <replica>
-                    <host>clickhouse06</host>
+                    <host>ch2-2</host>
+                    <port>9000</port>
+                </replica>
+            </shard>
+            <shard>
+                <replica>
+                    <host>ch3-1</host>
+                    <port>9000</port>
+                </replica>
+                <replica>
+                    <host>ch3-2</host>
                     <port>9000</port>
                 </replica>
             </shard>
@@ -87,7 +87,7 @@
     <macros>
         <cluster>company_cluster</cluster>
         <shard>${SHARD}</shard>
-        <replica>clickhouse${REPLICA}</replica>
+        <replica>ch${SHARD}-{REPLICA}</replica>
     </macros>
 
     <distributed_ddl>

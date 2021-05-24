@@ -36,82 +36,82 @@ services:
     networks:
       - clickhouse-network
 
-  clickhouse01:
+  ch1-1:
     image: yandex/clickhouse-server:21.5
-    container_name: clickhouse01
-    hostname: clickhouse01
+    container_name: ch1-1
+    hostname: ch1-1
     networks:
       - clickhouse-network
     ports:
       - "127.0.0.1:8123:8123"
       - "127.0.0.1:9001:9000"
     volumes:
-      - ${PWD}/clickhouse01:/etc/clickhouse-server
+      - ${PWD}/ch1-1:/etc/clickhouse-server
     depends_on:
       - zoo1
       - zoo2
       - zoo3
 
-  clickhouse02:
+  ch1-2:
     image: yandex/clickhouse-server:21.5
-    container_name: clickhouse02
-    hostname: clickhouse02
+    container_name: ch1-2
+    hostname: ch1-2
     networks:
       - clickhouse-network
     volumes:
-      - ${PWD}/clickhouse02:/etc/clickhouse-server
+      - ${PWD}/ch1-2:/etc/clickhouse-server
     depends_on:
       - zoo1
       - zoo2
       - zoo3
 
-  clickhouse03:
+  ch2-1:
     image: yandex/clickhouse-server:21.5
-    container_name: clickhouse03
-    hostname: clickhouse03
+    container_name: ch2-1
+    hostname: ch2-1
     networks:
       - clickhouse-network
     volumes:
-      - ${PWD}/clickhouse03:/etc/clickhouse-server
+      - ${PWD}/ch2-1:/etc/clickhouse-server
     depends_on:
       - zoo1
       - zoo2
       - zoo3
 
-  clickhouse04:
+  ch2-2:
     image: yandex/clickhouse-server:21.5
-    container_name: clickhouse04
-    hostname: clickhouse04
+    container_name: ch2-2
+    hostname: ch2-2
     networks:
       - clickhouse-network
     volumes:
-      - ${PWD}/clickhouse04:/etc/clickhouse-server
+      - ${PWD}/ch2-2:/etc/clickhouse-server
     depends_on:
       - zoo1
       - zoo2
       - zoo3
 
-  clickhouse05:
+  ch3-1:
     image: yandex/clickhouse-server:21.5
-    container_name: clickhouse05
-    hostname: clickhouse05
+    container_name: ch3-1
+    hostname: ch3-1
     networks:
       - clickhouse-network
     volumes:
-      - ${PWD}/clickhouse03:/etc/clickhouse-server
+      - ${PWD}/ch3-1:/etc/clickhouse-server
     depends_on:
       - zoo1
       - zoo2
       - zoo3
 
-  clickhouse06:
+  ch3-2:
     image: yandex/clickhouse-server:21.5
-    container_name: clickhouse06
-    hostname: clickhouse06
+    container_name: ch3-2
+    hostname: ch3-2
     networks:
       - clickhouse-network
     volumes:
-      - ${PWD}/clickhouse04:/etc/clickhouse-server
+      - ${PWD}/ch3-2:/etc/clickhouse-server
     depends_on:
       - zoo1
       - zoo2
