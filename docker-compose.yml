@@ -37,7 +37,7 @@ services:
       - clickhouse-network
 
   clickhouse01:
-    image: yandex/clickhouse-server:20.4
+    image: yandex/clickhouse-server:21.5
     container_name: clickhouse01
     hostname: clickhouse01
     networks:
@@ -53,7 +53,7 @@ services:
       - zoo3
 
   clickhouse02:
-    image: yandex/clickhouse-server:20.4
+    image: yandex/clickhouse-server:21.5
     container_name: clickhouse02
     hostname: clickhouse02
     networks:
@@ -66,7 +66,7 @@ services:
       - zoo3
 
   clickhouse03:
-    image: yandex/clickhouse-server:20.4
+    image: yandex/clickhouse-server:21.5
     container_name: clickhouse03
     hostname: clickhouse03
     networks:
@@ -79,7 +79,7 @@ services:
       - zoo3
 
   clickhouse04:
-    image: yandex/clickhouse-server:20.4
+    image: yandex/clickhouse-server:21.5
     container_name: clickhouse04
     hostname: clickhouse04
     networks:
@@ -92,7 +92,7 @@ services:
       - zoo3
 
   clickhouse05:
-    image: yandex/clickhouse-server:20.4
+    image: yandex/clickhouse-server:21.5
     container_name: clickhouse05
     hostname: clickhouse05
     networks:
@@ -105,7 +105,7 @@ services:
       - zoo3
 
   clickhouse06:
-    image: yandex/clickhouse-server:20.4
+    image: yandex/clickhouse-server:21.5
     container_name: clickhouse06
     hostname: clickhouse06
     networks:
