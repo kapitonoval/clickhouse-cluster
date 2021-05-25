@@ -35,7 +35,7 @@
     <mlock_executable>false</mlock_executable>
 
     <remote_servers>
-        <seowork>
+        <company_cluster>
             <shard>
                 <replica>
                     <host>ch1-1</host>
@@ -66,7 +66,7 @@
                     <port>9000</port>
                 </replica>
             </shard>
-        </seowork>
+        </company_cluster>
     </remote_servers>
 
     <zookeeper>
@@ -85,7 +85,7 @@
     </zookeeper>
 
     <macros>
-        <cluster>seowork</cluster>
+        <cluster>company_cluster</cluster>
         <shard>${SHARD}</shard>
         <replica>ch${SHARD}-${REPLICA}</replica>
     </macros>
