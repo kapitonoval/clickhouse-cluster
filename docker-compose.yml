@@ -8,7 +8,7 @@ services:
       - "3888"
     environment:
       ZOO_MY_ID: "1"
-      ZOO_SERVERS: server.1=0.0.0.0:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
+      ZOO_SERVERS: server.1=0.0.0.0:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=zoo3:2888:3888;2181
     networks:
       - clickhouse-network
 
@@ -20,7 +20,7 @@ services:
       - "3888"
     environment:
       ZOO_MY_ID: "2"
-      ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=0.0.0.0:2888:3888 server.3=zoo3:2888:3888
+      ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=0.0.0.0:2888:3888;2181 server.3=zoo3:2888:2888;2181
     networks:
       - clickhouse-network
 
@@ -32,7 +32,7 @@ services:
       - "3888"
     environment:
       ZOO_MY_ID: "3"
-      ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=0.0.0.0:2888:3888
+      ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=0.0.0.0:2888:3888;2181
     networks:
       - clickhouse-network
 
@@ -47,7 +47,7 @@ services:
       - "127.0.0.1:9002:9000"
     volumes:
       - ${PWD}/ch1-1:/etc/clickhouse-server
-      - ${PWD}/ch1-1/data:/var/lib/clickhouse
+#      - ${PWD}/ch1-1/data:/var/lib/clickhouse
     depends_on:
       - zoo1
       - zoo2
@@ -61,7 +61,7 @@ services:
       - clickhouse-network
     volumes:
       - ${PWD}/ch1-2:/etc/clickhouse-server
-      - ${PWD}/ch1-2/data:/var/lib/clickhouse
+#      - ${PWD}/ch1-2/data:/var/lib/clickhouse
     depends_on:
       - zoo1
       - zoo2
@@ -75,7 +75,7 @@ services:
       - clickhouse-network
     volumes:
       - ${PWD}/ch2-1:/etc/clickhouse-server
-      - ${PWD}/ch2-1/data:/var/lib/clickhouse
+#      - ${PWD}/ch2-1/data:/var/lib/clickhouse
     depends_on:
       - zoo1
       - zoo2
@@ -89,7 +89,7 @@ services:
       - clickhouse-network
     volumes:
       - ${PWD}/ch2-2:/etc/clickhouse-server
-      - ${PWD}/ch2-2/data:/var/lib/clickhouse
+#      - ${PWD}/ch2-2/data:/var/lib/clickhouse
     depends_on:
       - zoo1
       - zoo2
@@ -103,7 +103,7 @@ services:
       - clickhouse-network
     volumes:
       - ${PWD}/ch3-1:/etc/clickhouse-server
-      - ${PWD}/ch3-1/data:/var/lib/clickhouse
+#      - ${PWD}/ch3-1/data:/var/lib/clickhouse
     depends_on:
       - zoo1
       - zoo2
@@ -117,7 +117,7 @@ services:
       - clickhouse-network
     volumes:
       - ${PWD}/ch3-2:/etc/clickhouse-server
-      - ${PWD}/ch3-2/data:/var/lib/clickhouse
+#      - ${PWD}/ch3-2/data:/var/lib/clickhouse
     depends_on:
       - zoo1
       - zoo2
