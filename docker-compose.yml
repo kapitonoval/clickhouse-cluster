@@ -1,130 +1,145 @@
 version: '3.5'
 services:
-  zoo1:
-    image: zookeeper:latest
-    expose:
-      - "2181"
-      - "2888"
-      - "3888"
-    environment:
-      ZOO_MY_ID: "1"
-      ZOO_SERVERS: server.1=0.0.0.0:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
-    networks:
-      - clickhouse-network
+    zoo1:
+        image: zookeeper:latest
+        expose:
+            - "2181"
+            - "2888"
+            - "3888"
+        environment:
+            ZOO_MY_ID: "1"
+            ZOO_SERVERS: server.1=0.0.0.0:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
+        networks:
+            - clickhouse-network
 
-  zoo2:
-    image: zookeeper:latest
-    expose:
-      - "2181"
-      - "2888"
-      - "3888"
-    environment:
-      ZOO_MY_ID: "2"
-      ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=0.0.0.0:2888:3888 server.3=zoo3:2888:3888
-    networks:
-      - clickhouse-network
+    zoo2:
+        image: zookeeper:latest
+        expose:
+            - "2181"
+            - "2888"
+            - "3888"
+        environment:
+            ZOO_MY_ID: "2"
+            ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=0.0.0.0:2888:3888 server.3=zoo3:2888:3888
+        networks:
+            - clickhouse-network
 
-  zoo3:
-    image: zookeeper:latest
-    expose:
-      - "2181"
-      - "2888"
-      - "3888"
-    environment:
-      ZOO_MY_ID: "3"
-      ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=0.0.0.0:2888:3888
-    networks:
-      - clickhouse-network
+    zoo3:
+        image: zookeeper:latest
+        expose:
+            - "2181"
+            - "2888"
+            - "3888"
+        environment:
+            ZOO_MY_ID: "3"
+            ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=0.0.0.0:2888:3888
+        networks:
+            - clickhouse-network
 
-  ch1-1:
-    image: yandex/clickhouse-server:21.5
-    container_name: ch1-1
-    hostname: ch1-1
-    networks:
-      - clickhouse-network
-    ports:
-      - "127.0.0.1:8123:8123"
-      - "127.0.0.1:9002:9000"
-    volumes:
-      - ${PWD}/ch1-1:/etc/clickhouse-server
-      - ${PWD}/ch1-1/data:/var/lib/clickhouse
-    depends_on:
-      - zoo1
-      - zoo2
-      - zoo3
+    ch1-1:
+        image: yandex/clickhouse-server:21.5
+        container_name: ch1-1
+        hostname: ch1-1
+        networks:
+            - clickhouse-network
+        ports:
+            - "8111:8123"
+            - "9011:9000"
+        volumes:
+            - ${PWD}/ch1-1:/etc/clickhouse-server
+            - ${PWD}/ch1-1/data:/var/lib/clickhouse
+        depends_on:
+            - zoo1
+            - zoo2
+            - zoo3
 
-  ch1-2:
-    image: yandex/clickhouse-server:21.5
-    container_name: ch1-2
-    hostname: ch1-2
-    networks:
-      - clickhouse-network
-    volumes:
-      - ${PWD}/ch1-2:/etc/clickhouse-server
-      - ${PWD}/ch1-1/data:/var/lib/clickhouse
-    depends_on:
-      - zoo1
-      - zoo2
-      - zoo3
+    ch1-2:
+        image: yandex/clickhouse-server:21.5
+        container_name: ch1-2
+        hostname: ch1-2
+        networks:
+            - clickhouse-network
+        ports:
+            - "8112:8123"
+            - "9012:9000"
+        volumes:
+            - ${PWD}/ch1-2:/etc/clickhouse-server
+            - ${PWD}/ch1-2/data:/var/lib/clickhouse
+        depends_on:
+            - zoo1
+            - zoo2
+            - zoo3
 
-  ch2-1:
-    image: yandex/clickhouse-server:21.5
-    container_name: ch2-1
-    hostname: ch2-1
-    networks:
-      - clickhouse-network
-    volumes:
-      - ${PWD}/ch2-1:/etc/clickhouse-server
-      - ${PWD}/ch1-1/data:/var/lib/clickhouse
-    depends_on:
-      - zoo1
-      - zoo2
-      - zoo3
+    ch2-1:
+        image: yandex/clickhouse-server:21.5
+        container_name: ch2-1
+        hostname: ch2-1
+        networks:
+            - clickhouse-network
+        ports:
+            - "8121:8123"
+            - "9021:9000"
+        volumes:
+            - ${PWD}/ch2-1:/etc/clickhouse-server
+            - ${PWD}/ch2-1/data:/var/lib/clickhouse
+        depends_on:
+            - zoo1
+            - zoo2
+            - zoo3
 
-  ch2-2:
-    image: yandex/clickhouse-server:21.5
-    container_name: ch2-2
-    hostname: ch2-2
-    networks:
-      - clickhouse-network
-    volumes:
-      - ${PWD}/ch2-2:/etc/clickhouse-server
-      - ${PWD}/ch1-1/data:/var/lib/clickhouse
-    depends_on:
-      - zoo1
-      - zoo2
-      - zoo3
+    ch2-2:
+        image: yandex/clickhouse-server:21.5
+        container_name: ch2-2
+        hostname: ch2-2
+        networks:
+            - clickhouse-network
+        ports:
+            - "8122:8123"
+            - "9022:9000"
+        volumes:
+            - ${PWD}/ch2-2:/etc/clickhouse-server
+            - ${PWD}/ch2-2/data:/var/lib/clickhouse
+        depends_on:
+            - zoo1
+            - zoo2
+            - zoo3
 
-  ch3-1:
-    image: yandex/clickhouse-server:21.5
-    container_name: ch3-1
-    hostname: ch3-1
-    networks:
-      - clickhouse-network
-    volumes:
-      - ${PWD}/ch3-1:/etc/clickhouse-server
-      - ${PWD}/ch1-1/data:/var/lib/clickhouse
-    depends_on:
-      - zoo1
-      - zoo2
-      - zoo3
+    ch3-1:
+        image: yandex/clickhouse-server:21.5
+        container_name: ch3-1
+        hostname: ch3-1
+        networks:
+            - clickhouse-network
+        ports:
+            - "8131:8123"
+            - "9031:9000"
+        volumes:
+            - ${PWD}/ch3-1:/etc/clickhouse-server
+            - ${PWD}/ch3-1/data:/var/lib/clickhouse
+        depends_on:
+            - zoo1
+            - zoo2
+            - zoo3
 
-  ch3-2:
-    image: yandex/clickhouse-server:21.5
-    container_name: ch3-2
-    hostname: ch3-2
-    networks:
-      - clickhouse-network
-    volumes:
-      - ${PWD}/ch3-2:/etc/clickhouse-server
-      - ${PWD}/ch1-1/data:/var/lib/clickhouse
-    depends_on:
-      - zoo1
-      - zoo2
-      - zoo3
+    ch3-2:
+        image: yandex/clickhouse-server:21.5
+        container_name: ch3-2
+        hostname: ch3-2
+        networks:
+            - clickhouse-network
+        ports:
+            - "8132:8123"
+            - "9032:9000"
+        volumes:
+            - ${PWD}/ch3-2:/etc/clickhouse-server
+            - ${PWD}/ch3-2/data:/var/lib/clickhouse
+        depends_on:
+            - zoo1
+            - zoo2
+            - zoo3
 
 networks:
-  clickhouse-network:
-    external:
-      name: dev_network
+    clickhouse-network:
+        external:
+            name: dev_network
 

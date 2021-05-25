@@ -85,7 +85,7 @@
     </zookeeper>
 
     <macros>
-        <cluster>company_cluster</cluster>
+        <cluster>seowork</cluster>
         <shard>${SHARD}</shard>
         <replica>ch${SHARD}-{REPLICA}</replica>
     </macros>
