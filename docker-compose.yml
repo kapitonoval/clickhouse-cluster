@@ -1,40 +1,40 @@
 version: '3.5'
 services:
   zoo1:
-    image: zookeeper:latest
-    expose:
-      - "2181"
-      - "2888"
-      - "3888"
-    environment:
-      ZOO_MY_ID: "1"
-      ZOO_SERVERS: server.1=0.0.0.0:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=zoo3:2888:3888;2181
+    image: zookeeper:3.6
+    restart: always
+    hostname: zoo1
     networks:
       - clickhouse-network
+    ports:
+      - 2181:2181
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=0.0.0.0:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=zoo3:2888:3888;2181
 
   zoo2:
-    image: zookeeper:latest
-    expose:
-      - "2181"
-      - "2888"
-      - "3888"
-    environment:
-      ZOO_MY_ID: "2"
-      ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=0.0.0.0:2888:3888;2181 server.3=zoo3:2888:2888;2181
+    image: zookeeper:3.6
+    restart: always
+    hostname: zoo2
     networks:
       - clickhouse-network
+    ports:
+      - 2182:2181
+    environment:
+      ZOO_MY_ID: 2
+      ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=0.0.0.0:2888:3888;2181 server.3=zoo3:2888:3888;2181
 
   zoo3:
-    image: zookeeper:latest
-    expose:
-      - "2181"
-      - "2888"
-      - "3888"
-    environment:
-      ZOO_MY_ID: "3"
-      ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=0.0.0.0:2888:3888;2181
+    image: zookeeper:3.6
+    restart: always
+    hostname: zoo3
     networks:
       - clickhouse-network
+    ports:
+      - 2183:2181
+    environment:
+      ZOO_MY_ID: 3
+      ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=0.0.0.0:2888:3888;2181
 
   ch1-1:
     image: yandex/clickhouse-server:21.5
